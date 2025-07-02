@@ -2,7 +2,7 @@ package config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
-import org.springdoc.core.GroupedOpenApi;
+import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,13 +14,13 @@ public class SwaggerConfig {
         return new OpenAPI().info(new Info()
                 .title("PerfulandiaSPA API")
                 .version("1.0")
-                .description("DocumentaciÃ³n de los microservicios de PerfulandiaSPA"));
+                .description("Documentación de los microservicios de PerfulandiaSPA"));
     }
 
     @Bean
     public GroupedOpenApi publicApi() {
         return GroupedOpenApi.builder()
-                .group("springshop-public")
+                .group("perfulandia-public")
                 .pathsToMatch("/**")
                 .build();
     }
