@@ -1,14 +1,17 @@
-package service;
+package com.perfulandia.service;
 
-import model.Branch;
-import repository.BranchReoisitory;
+import com.perfulandia.model.Branch;
+import com.perfulandia.repository.BranchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
+@Service
 public class BranchService {
 
-    private BranchReoisitory branchRepository;
+    @Autowired
+    private BranchRepository branchRepository;
 
     public List<Branch> getAllBranches() {
         return branchRepository.findAll();
@@ -32,7 +35,7 @@ public class BranchService {
             branch.setOpeningHours(branchDetails.getOpeningHours());
             return branchRepository.save(branch);
         }
-        throw new IllegalArgumentException("Sucursal no encontrada: " + id);
+        return null;
     }
 
     public void deleteBranch(Long id) {

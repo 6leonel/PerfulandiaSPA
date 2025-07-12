@@ -1,13 +1,20 @@
-package model;
+package com.perfulandia.model;
 
 import jakarta.persistence.*;
 
+@Entity
 public class Inventory {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String productName;
+
+    private String name;
     private int quantity;
     private double price;
+    private String description;
+
+    // Getters y setters
 
     public Long getId() {
         return id;
@@ -17,12 +24,12 @@ public class Inventory {
         this.id = id;
     }
 
-    public String getProductName() {
-        return productName;
+    public String getName() {
+        return name;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getQuantity() {
@@ -39,5 +46,13 @@ public class Inventory {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

@@ -1,15 +1,22 @@
-package model;
+package com.perfulandia.model;
 
 import jakarta.persistence.*;
 
+@Entity
+@Table(name = "branches") // Este nombre debe coincidir con el de tu tabla real en la base de datos
 public class Branch {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
     private String address;
     private String city;
     private String state;
     private String openingHours;
+
+    // Getters y Setters
 
     public Long getId() {
         return id;

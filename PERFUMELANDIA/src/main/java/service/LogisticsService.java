@@ -1,16 +1,22 @@
-package service;
+package com.perfulandia.service;
 
-import model.Logistics;
-import repository.LogisticsRepository;
+import com.perfulandia.model.Logistics;
+import com.perfulandia.repository.LogisticsRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
 import java.util.List;
 import java.util.UUID;
 
+@Service
 public class LogisticsService {
 
+    @Autowired
     private LogisticsRepository logisticsRepository;
+
+    @Autowired
     private RestTemplate restTemplate;
 
     private static final String SALES_SERVICE_URL = "http://localhost:8080/api/sales";
@@ -24,16 +30,11 @@ public class LogisticsService {
     }
 
     public Logistics createShipment(Long saleId) {
-        Boolean saleExists = restTemplate.getForObject(SALES_SERVICE_URL + "/" + saleId, Boolean.class);
-        if (!Boolean.TRUE.equals(saleExists)) {
-            throw new IllegalArgumentException("La venta no existe: " + saleId);
-        }
-
-        Logistics logistics = new Logistics();
-        logistics.setSaleId(saleId);
-        logistics.setStatus("PENDING");
-        logistics.setTrackingNumber(UUID.randomUUID().toString());
-        return logisticsRepository.save(logistics);
+        Logistics shipment = new Logistics();
+        shipment.setSaleId(saleId);
+        shipment.setTrackingNumber(UUID.randomUUID().toString()); // ✅ Corrección aquí
+        shipment.setStatus("PENDING");
+        return logisticsRepository.save(shipment);
     }
 
     public Logistics updateShipmentStatus(Long id, String status) {
@@ -42,7 +43,7 @@ public class LogisticsService {
             logistics.setStatus(status);
             return logisticsRepository.save(logistics);
         }
-        throw new IllegalArgumentException("El envío no existe: " + id);
+        return null;
     }
 
     public void deleteShipment(Long id) {

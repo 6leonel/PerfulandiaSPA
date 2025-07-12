@@ -1,7 +1,7 @@
-package controller;
+package com.perfulandia.controller;
 
-import model.Logistics;
-import service.LogisticsService;
+import com.perfulandia.model.Logistics;
+import com.perfulandia.service.LogisticsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -1,7 +1,7 @@
-package controller;
+package com.perfulandia.controller;
 
-import model.Inventory;
-import service.InventoryService;
+import com.perfulandia.model.Inventory;
+import com.perfulandia.service.InventoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,10 +41,7 @@ public class InventoryController {
     @GetMapping("/{id}")
     public ResponseEntity<Inventory> getItemById(@PathVariable Long id) {
         Inventory item = inventoryService.getItemById(id);
-        if (item != null) {
-            return ResponseEntity.ok(item);
-        }
-        return ResponseEntity.notFound().build();
+        return item != null ? ResponseEntity.ok(item) : ResponseEntity.notFound().build();
     }
 
     @Operation(
@@ -71,10 +68,7 @@ public class InventoryController {
     @PutMapping("/{id}")
     public ResponseEntity<Inventory> updateItem(@PathVariable Long id, @RequestBody Inventory itemDetails) {
         Inventory updatedItem = inventoryService.updateItem(id, itemDetails);
-        if (updatedItem != null) {
-            return ResponseEntity.ok(updatedItem);
-        }
-        return ResponseEntity.notFound().build();
+        return updatedItem != null ? ResponseEntity.ok(updatedItem) : ResponseEntity.notFound().build();
     }
 
     @Operation(

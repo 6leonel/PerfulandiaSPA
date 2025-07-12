@@ -1,4 +1,5 @@
-package model;
+package com.perfulandia.model;
+
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

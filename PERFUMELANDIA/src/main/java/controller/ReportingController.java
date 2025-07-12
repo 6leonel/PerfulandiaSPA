@@ -1,7 +1,7 @@
-package controller;
+package com.perfulandia.controller;
 
-import model.Report;
-import service.ReportingService;
+import com.perfulandia.model.Report;
+import com.perfulandia.service.ReportingService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

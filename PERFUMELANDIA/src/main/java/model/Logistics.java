@@ -1,10 +1,14 @@
-package model;
+package com.perfulandia.model;
 
 import jakarta.persistence.*;
 
+@Entity
 public class Logistics {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private Long saleId;
     private String status;
     private String trackingNumber;

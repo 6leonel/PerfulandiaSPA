@@ -1,7 +1,7 @@
-package controller;
+package com.perfulandia.controller;
 
-import model.Branch;
-import service.BranchService;
+import com.perfulandia.model.Branch;
+import com.perfulandia.service.BranchService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

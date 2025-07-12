@@ -1,13 +1,11 @@
-package controller;
+package com.perfulandia.controller;
 
-import model.Sale;
-import service.SaleService;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import com.perfulandia.model.Sale;
+import com.perfulandia.service.SaleService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,23 +22,21 @@ public class SaleController {
         return saleService.getAllSales();
     }
 
-    @Operation(summary = "Obtener venta por ID", description = "Devuelve una venta específica por su ID.")
+    @Operation(summary = "Obtener venta por ID", description = "Devuelve los datos de una venta específica.")
     @GetMapping("/{id}")
-    public ResponseEntity<Sale> getSaleById(@PathVariable Long id) {
-        Sale sale = saleService.getSaleById(id);
-        return sale != null ? ResponseEntity.ok(sale) : ResponseEntity.notFound().build();
+    public Sale getSaleById(@PathVariable Long id) {
+        return saleService.getSaleById(id);
     }
 
-    @Operation(summary = "Registrar venta", description = "Registra una nueva venta en el sistema.")
+    @Operation(summary = "Crear venta", description = "Registra una nueva venta.")
     @PostMapping
     public Sale createSale(@RequestBody Sale sale) {
         return saleService.createSale(sale);
     }
 
-    @Operation(summary = "Eliminar venta", description = "Elimina una venta por su ID.")
+    @Operation(summary = "Eliminar venta", description = "Elimina una venta por ID.")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteSale(@PathVariable Long id) {
+    public void deleteSale(@PathVariable Long id) {
         saleService.deleteSale(id);
-        return ResponseEntity.noContent().build();
     }
 }

@@ -1,14 +1,16 @@
-package controller;
+package com.perfulandia.controller;
 
-import model.User;
-import service.UserService;
-import exception.UserNotFoundException;
+import com.perfulandia.model.User;
+import com.perfulandia.service.UserService;
+import com.perfulandia.exception.UserNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
@@ -24,13 +26,18 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Operation(
-            summary = "Listar todos los usuarios",
-            description = "Devuelve una lista completa de los usuarios registrados."
-    )
+    @Operation(summary = "Listar todos los usuarios", description = "Devuelve una lista completa de los usuarios registrados.")
     @GetMapping
-    public List<User> getAllUsers() {
-        return userService.getAllUsers();
+    public CollectionModel<EntityModel<User>> getAllUsers() {
+        List<User> users = userService.getAllUsers();
+
+        List<EntityModel<User>> userModels = users.stream()
+                .map(user -> EntityModel.of(user,
+                        linkTo(methodOn(UserController.class).getUserById(user.getId())).withSelfRel()))
+                .collect(Collectors.toList());
+
+        return CollectionModel.of(userModels,
+                linkTo(methodOn(UserController.class).getAllUsers()).withSelfRel());
     }
 
     @Operation(
@@ -46,10 +53,10 @@ public class UserController {
     public EntityModel<User> getUserById(@PathVariable Long id) {
         User user = userService.getUserById(id);
         if (user == null) throw new UserNotFoundException("Usuario no encontrado");
-        EntityModel<User> model = EntityModel.of(user);
-        model.add(linkTo(methodOn(UserController.class).getUserById(id)).withSelfRel());
-        model.add(linkTo(methodOn(UserController.class).getAllUsers()).withRel("usuarios"));
-        return model;
+
+        return EntityModel.of(user,
+                linkTo(methodOn(UserController.class).getUserById(id)).withSelfRel(),
+                linkTo(methodOn(UserController.class).getAllUsers()).withRel("usuarios"));
     }
 
     @Operation(
