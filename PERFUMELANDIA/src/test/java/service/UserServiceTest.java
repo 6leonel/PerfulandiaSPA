@@ -45,4 +45,4 @@ public class UserServiceTest {
 
         assertThrows(UserNotFoundException.class, () -> userService.getUserById(2L));
     }
-} 
+}

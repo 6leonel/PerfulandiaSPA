@@ -1,20 +1,21 @@
 package com.perfulandia.model;
 
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
-@Table(name = "producto")
+@Table(name = "PRODUCTO", schema = "ADMIN")
 public class Producto {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "NOMBRE")
     private String nombre;
 
-    private Double precio;
+    @Column(name = "PRECIO")
+    private BigDecimal precio;
 
     // Getters y setters
     public Long getId() {
@@ -33,11 +34,11 @@ public class Producto {
         this.nombre = nombre;
     }
 
-    public Double getPrecio() {
+    public BigDecimal getPrecio() {
         return precio;
     }
 
-    public void setPrecio(Double precio) {
+    public void setPrecio(BigDecimal precio) {
         this.precio = precio;
     }
 }

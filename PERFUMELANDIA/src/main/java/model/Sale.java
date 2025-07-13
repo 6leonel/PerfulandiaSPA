@@ -1,12 +1,16 @@
 package com.perfulandia.model;
 
-
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "sale")
 public class Sale {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private Long productId;
     private Long userId;
     private int quantity;
